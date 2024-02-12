@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useTable } from "@refinedev/react-table";
-import { useDelete, useNavigation } from "@refinedev/core";
-import { ColumnDef, flexRender } from "@tanstack/react-table";
+import { useNavigation } from "@refinedev/core";
+import { flexRender } from "@tanstack/react-table";
 import {
     Table,
     TableBody,
@@ -19,29 +19,31 @@ import {
     ScrollView,
 } from "react95";
 
-import { IPost } from "../../interfaces";
-
-export const PostList = () => {
+export const HouseList = () => {
     const { edit } = useNavigation();
 
-    const { mutate: deletePost } = useDelete<IPost>();
+    // Hardcoded list of houses
+    const data = useMemo(() => [
+        { id: 1, name: "Aonyx", total_points: 100 },
+        { id: 2, name: "Chelonia", total_points: 200 },
+        { id: 3, name: "Manis", total_points: 150 },
+        { id: 4, name: "Orcaella", total_points: 180 },
+        { id: 5, name: "Panthera", total_points: 170 },
+        { id: 6, name: "Rusa", total_points: 90 },
+        { id: 7, name: "Strix", total_points: 110 },
+    ], []);
 
-    const columns = React.useMemo<ColumnDef<IPost>[]>(
+    const columns = useMemo(
         () => [
             {
-                id: "id",
-                header: "ID",
-                accessorKey: "id",
+                id: "name",
+                header: "House",
+                accessorKey: "name",
             },
             {
-                id: "title",
-                header: "Title",
-                accessorKey: "title",
-            },
-            {
-                id: "categoryId",
-                header: "Category",
-                accessorKey: "categories.title",
+                id: "totalpoints",
+                header: "Total Points",
+                accessorKey: "total_points",
             },
             {
                 id: "action",
@@ -59,29 +61,10 @@ export const PostList = () => {
                             <Button
                                 size="sm"
                                 onClick={() =>
-                                    edit("posts", getValue() as number)
+                                    edit("houses", getValue())
                                 }
                             >
-                                Edit
-                            </Button>
-                            <Button
-                                size="sm"
-                                onClick={() => {
-                                    const id = getValue() as number;
-
-                                    const result = window.confirm(
-                                        "Are you sure you want to delete this post?",
-                                    );
-
-                                    if (result) {
-                                        deletePost({
-                                            resource: "posts",
-                                            id,
-                                        });
-                                    }
-                                }}
-                            >
-                                Delete
+                                Details
                             </Button>
                         </div>
                     );
@@ -101,7 +84,8 @@ export const PostList = () => {
         refineCore: {
             tableQueryResult: { isLoading },
         },
-    } = useTable<IPost>({
+    } = useTable({
+        data, // Use the hardcoded data here
         columns,
         refineCoreProps: {
             meta: {
@@ -113,7 +97,7 @@ export const PostList = () => {
     return (
         <>
             <Window style={{ width: "100%" }}>
-                <WindowHeader>Posts</WindowHeader>
+                <WindowHeader>Houses</WindowHeader>
                 <WindowContent>
                     <ScrollView style={{ width: "100%", height: "410px" }}>
                         <Table>
@@ -127,8 +111,7 @@ export const PostList = () => {
                                                 onClick={header.column.getToggleSortingHandler()}
                                             >
                                                 {flexRender(
-                                                    header.column.columnDef
-                                                        .header,
+                                                    header.column.columnDef.header,
                                                     header.getContext(),
                                                 )}
                                             </TableHeadCell>
@@ -137,28 +120,18 @@ export const PostList = () => {
                                 ))}
                             </TableHead>
                             <TableBody>
-                                {getRowModel().rows.map((row) => {
-                                    return (
-                                        <TableRow key={row.id}>
-                                            {row
-                                                .getVisibleCells()
-                                                .map((cell) => {
-                                                    return (
-                                                        <TableDataCell
-                                                            key={cell.id}
-                                                        >
-                                                            {flexRender(
-                                                                cell.column
-                                                                    .columnDef
-                                                                    .cell,
-                                                                cell.getContext(),
-                                                            )}
-                                                        </TableDataCell>
-                                                    );
-                                                })}
-                                        </TableRow>
-                                    );
-                                })}
+                                {getRowModel().rows.map((row) => (
+                                    <TableRow key={row.id}>
+                                        {row.getVisibleCells().map((cell) => (
+                                            <TableDataCell key={cell.id}>
+                                                {flexRender(
+                                                    cell.column.columnDef.cell,
+                                                    cell.getContext(),
+                                                )}
+                                            </TableDataCell>
+                                        ))}
+                                    </TableRow>
+                                ))}
                             </TableBody>
                         </Table>
                         {isLoading && (
@@ -184,7 +157,7 @@ export const PostList = () => {
                         alignItems: "flex-end",
                     }}
                 >
-                    <Select<number>
+                    <Select
                         style={{ marginLeft: 8 }}
                         value={getState().pagination.pageSize}
                         onChange={(option) => {

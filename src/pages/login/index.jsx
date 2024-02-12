@@ -9,16 +9,12 @@ import {
     Button,
 } from "react95";
 
-interface ILoginForm {
-    email: string;
-    password: string;
-}
 
 export const LoginPage = () => {
-    const [email, setemail] = useState("info@refine.dev");
-    const [password, setPassword] = useState("refine-supabase");
+    const [email, setemail] = useState("e1234567@u.nus.edu");
+    const [password, setPassword] = useState("ensieme-supabase");
 
-    const { mutate: login } = useLogin<ILoginForm>();
+    const { mutate: login } = useLogin();
 
     return (
         <div
@@ -34,12 +30,12 @@ export const LoginPage = () => {
         >
             <Window>
                 <WindowHeader>
-                    <span>Refine Login</span>
+                    <span>Welcome to Ensieme</span>
                 </WindowHeader>
                 <div style={{ marginTop: 8 }}>
                     <img
-                        src="https://raw.githubusercontent.com/refinedev/refine/master/logo.png"
-                        alt="refine-logo"
+                        src="../../../images/logo.png"
+                        alt="rvrc-logo"
                         width={100}
                     />
                 </div>

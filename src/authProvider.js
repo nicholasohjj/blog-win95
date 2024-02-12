@@ -1,8 +1,6 @@
-import { AuthProvider } from "@refinedev/core";
-
 import { supabaseClient } from "./utility";
 
-const authProvider: AuthProvider = {
+const authProvider = {
     login: async ({ email, password, providerName }) => {
         // sign in with oauth
         try {
@@ -47,7 +45,7 @@ const authProvider: AuthProvider = {
                     redirectTo: "/",
                 };
             }
-        } catch (error: any) {
+        } catch (error) {
             return {
                 success: false,
                 error,
@@ -82,7 +80,7 @@ const authProvider: AuthProvider = {
                     redirectTo: "/",
                 };
             }
-        } catch (error: any) {
+        } catch (error) {
             return {
                 success: false,
                 error,
@@ -116,7 +114,7 @@ const authProvider: AuthProvider = {
                     success: true,
                 };
             }
-        } catch (error: any) {
+        } catch (error) {
             return {
                 success: false,
                 error,
@@ -150,7 +148,7 @@ const authProvider: AuthProvider = {
                     redirectTo: "/",
                 };
             }
-        } catch (error: any) {
+        } catch (error) {
             return {
                 success: false,
                 error,
@@ -204,7 +202,7 @@ const authProvider: AuthProvider = {
                     redirectTo: "/login",
                 };
             }
-        } catch (error: any) {
+        } catch (error) {
             return {
                 authenticated: false,
                 error: error || {

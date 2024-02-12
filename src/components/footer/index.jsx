@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLogout, useNavigation } from "@refinedev/core";
 import { AppBar, Toolbar, Button, MenuList, MenuListItem } from "react95";
 
-export const Footer: React.FC = () => {
+export const Footer = () => {
     const [open, setOpen] = useState(false);
 
     const { mutate: logout } = useLogout();
@@ -18,8 +18,8 @@ export const Footer: React.FC = () => {
                         style={{ fontWeight: "bold" }}
                     >
                         <img
-                            src="https://raw.githubusercontent.com/refinedev/refine/master/logo.png"
-                            alt="refine logo"
+                            src="../../../images/logo.png"
+                            alt="rvrc-logo"
                             style={{ height: "20px", marginRight: 4 }}
                         />
                     </Button>
@@ -34,17 +34,17 @@ export const Footer: React.FC = () => {
                         >
                             <MenuListItem
                                 onClick={() => {
-                                    push("posts");
+                                    push("houses");
                                 }}
                             >
-                                Posts
+                                Scoreboard
                             </MenuListItem>
                             <MenuListItem
                                 onClick={() => {
-                                    push("categories");
+                                    push("activities");
                                 }}
                             >
-                                Categories
+                                My Progress
                             </MenuListItem>
                             <MenuListItem
                                 onClick={() => {

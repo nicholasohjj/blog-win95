@@ -7,7 +7,7 @@ import {
     WindowContent,
 } from "react95";
 
-export const CategoryEdit: React.FC = () => {
+export const ActivityCreate = () => {
     const {
         refineCore: { onFinish, formLoading },
         register,
@@ -18,7 +18,7 @@ export const CategoryEdit: React.FC = () => {
     return (
         <Window style={{ width: "100%", height: "100%" }}>
             <WindowHeader>
-                <span>Edit Category</span>
+                <span>Create Activity</span>
             </WindowHeader>
             <WindowContent>
                 <form onSubmit={handleSubmit(onFinish)}>

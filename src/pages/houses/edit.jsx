@@ -11,7 +11,7 @@ import {
 } from "react95";
 import { Controller } from "react-hook-form";
 
-export const PostEdit: React.FC = () => {
+export const HouseEdit = () => {
     const {
         refineCore: { onFinish, formLoading },
         register,
@@ -27,7 +27,7 @@ export const PostEdit: React.FC = () => {
     return (
         <Window style={{ width: "100%", height: "100%" }}>
             <WindowHeader>
-                <span>Edit Post</span>
+                <span>Edit House</span>
             </WindowHeader>
             <WindowContent>
                 <form onSubmit={handleSubmit(onFinish)}>

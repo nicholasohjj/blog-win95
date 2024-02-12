@@ -11,7 +11,7 @@ import {
 } from "react95";
 import { Controller } from "react-hook-form";
 
-export const PostCreate: React.FC = () => {
+export const HouseCreate = () => {
     const {
         refineCore: { onFinish, formLoading },
         register,
@@ -27,7 +27,7 @@ export const PostCreate: React.FC = () => {
     return (
         <Window style={{ width: "100%", height: "100%" }}>
             <WindowHeader>
-                <span>Create Post</span>
+                <span>Create House</span>
             </WindowHeader>
             <WindowContent>
                 <form onSubmit={handleSubmit(onFinish)}>
